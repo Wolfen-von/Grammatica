@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grammatica italiana</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231e7a52'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='700' text-anchor='middle' fill='%23fff'%3EIt%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/stile.css">
+  <link rel="stylesheet" href="css/aspetto.css">
+  <script>
+    // Tema prima del primo disegno della pagina: scelta salvata, altrimenti quella del sistema
+    (function () {
+      var temi = ["light", "dark", "dracula", "amalfi", "toscana", "laguna"], salvato = null;
+      try { salvato = localStorage.getItem("grammatica-tema"); } catch (e) {}
+      if (temi.indexOf(salvato) < 0) salvato = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = salvato;
+    })();
+  </script>
+</head>
+<body>
+  <a class="salta" href="#app">Vai al contenuto</a>
+  <header class="barra">
+    <a class="marchio" href="#/"><span class="logo">It</span><span>Grammatica italiana</span></a>
+    <nav class="nav" aria-label="Sezioni">
+      <a href="#/" data-v="" aria-keyshortcuts="Alt+1" title="Alt + 1">Oggi</a>
+      <a href="#/mappa" data-v="mappa" aria-keyshortcuts="Alt+2" title="Alt + 2">Percorso</a>
+      <a href="#/ripasso" data-v="ripasso" aria-keyshortcuts="Alt+3" title="Alt + 3">Ripasso</a>
+      <a href="#/produzione" data-v="produzione" aria-keyshortcuts="Alt+4" title="Alt + 4">Produzione</a>
+      <a href="#/progressi" data-v="progressi" aria-keyshortcuts="Alt+5" title="Alt + 5">Progressi</a>
+      <a href="#/metodo" data-v="metodo" aria-keyshortcuts="Alt+6" title="Alt + 6">Metodo</a>
+    </nav>
+    <div class="chip-gruppo">
+      <span class="chip" id="chip-serie" title="Giorni di studio di fila">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c1 3.5 5 6 5 11a5 5 0 0 1-10 0c0-2.4 1.2-4 2.5-5.3.2 1.6 1 2.8 2.2 3.3C11 8.6 11.3 5 12 2z"/></svg>
+        <b id="val-serie">0</b>
+      </span>
+      <span class="chip" id="chip-tempo" title="Minuti di studio oggi / obiettivo">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 9v4.5l3 2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M9 2h6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <b id="val-tempo">0/40</b>
+      </span>
+      <span class="chip" id="chip-stelle" title="Stelle ottenute">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg>
+        <b id="val-stelle">0</b>
+      </span>
+    </div>
+    <div class="opzioni">
+      <button type="button" class="bottone-barra" id="btn-opzioni" aria-label="Opzioni" title="Opzioni" aria-expanded="false" aria-controls="menu-opzioni">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <div class="menu-opzioni" id="menu-opzioni" role="dialog" aria-label="Opzioni" hidden>
+        <p class="menu-titolo">Tema</p>
+        <div class="temi" role="radiogroup" aria-label="Tema">
+          <button type="button" role="radio" class="tema-scelta" data-tema="light" aria-checked="false"><span class="campione" style="--a:#f6f3ec;--b:#1e7a52"></span>Chiaro</button>
+          <button type="button" role="radio" class="tema-scelta" data-tema="dark" aria-checked="false"><span class="campione" style="--a:#14171a;--b:#4fc28b"></span>Scuro</button>
+          <button type="button" role="radio" class="tema-scelta" data-tema="dracula" aria-checked="false"><span class="campione" style="--a:#282a36;--b:#bd93f9"></span>Dracula</button>
+          <button type="button" role="radio" class="tema-scelta" data-tema="amalfi" aria-checked="false"><span class="campione" style="--a:#fbf7ea;--b:#1d5fa6"></span>Amalfi</button>
+          <button type="button" role="radio" class="tema-scelta" data-tema="toscana" aria-checked="false"><span class="campione" style="--a:#f7efe3;--b:#a3401d"></span>Toscana</button>
+          <button type="button" role="radio" class="tema-scelta" data-tema="laguna" aria-checked="false"><span class="campione" style="--a:#0e1a23;--b:#e2b553"></span>Laguna</button>
+        </div>
+        <hr class="menu-separatore">
+        <p class="menu-titolo">Audio</p>
+        <a class="menu-voce" href="#/audio">Registrazioni e voci</a>
+        <hr class="menu-separatore">
+        <p class="menu-titolo">Tastiera</p>
+        <button type="button" class="menu-voce" id="opz-tasti" aria-keyshortcuts="?">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M8 14h8"/></svg>
+          Scorciatoie da tastiera <kbd>?</kbd>
+        </button>
+        <hr class="menu-separatore">
+        <p class="menu-titolo">I tuoi progressi</p>
+        <p class="menu-nota">Sono salvati solo in questo browser. Esporta una copia per non perderli o per portarli in un altro browser.</p>
+        <button type="button" class="menu-voce" id="opz-esporta">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Esporta i progressi
+        </button>
+        <button type="button" class="menu-voce" data-apri="opz-importa">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          Importa i progressi
+        </button>
+        <input type="file" id="opz-importa" accept="application/json,.json" hidden>
+        <p class="menu-esito" id="opz-esito" role="status"></p>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" class="contenuto" tabindex="-1">
+    <p class="caricamento">Caricamento…</p>
+  </main>
+
+  <script src="js/core.js"></script>
+  <script src="js/esercizi.js"></script>
+  <script src="js/app.js"></script>
+  <script src="dati/indice.js"></script>
+  <script>App.avvia();</script>
+</body>
+</html>
